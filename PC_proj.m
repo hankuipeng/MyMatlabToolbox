@@ -29,7 +29,7 @@ eigvecs = diag(S'*S); % a sequence of eigenvalues
 
 % number of eigenvectors needed to capture no less than pct% of the
 % variability in the data 
-n = sum((cumsum(eigvecs)>=sum(eigvecs))*pct==0)+1;
+n = sum((cumsum(eigvecs)>=sum(eigvecs)*pct)==0)+1;
 
 % project data from cluster 1 onto subspace (1st PC) of cluster 1
 dat = X_0m*V(:,1:n)*V(:,1:n)'+mu;
