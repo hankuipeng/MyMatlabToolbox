@@ -1,4 +1,4 @@
-function [svals groups] = LinSubspace(X, K, max_iter)
+function [svals groups] = LinSubspace_k(X, K, max_iter)
 % LinSubspace(X,K) conducts subspace clustering for data that come from
 % linear subspaces. We fit a linear regression into each cluster, and take
 % each set of linear regression coefficients as our "centroids". We then
@@ -18,22 +18,21 @@ centroids = zeros(K,P); % the centroids matrix
 %% 1. random initialisation 
 groups = datasample(1:K,N,'Replace',true); 
 svals = [];
+n = [];
+regressors = [];
+response = [];
 
 for iter = 1:max_iter    
     
-    %% 2. build one linear regression for each group
-    n1 = length(find(groups==1));
-    n2 = N-n1;
-    
-    %%
-    regressors1 = [ones(n1,1) X(groups==1,1)];
-    response1 = X(groups==1,2);
-    centroids(1,:) = (regressors1\response1)';
-    
-    %%
-    regressors2 = [ones(n2,1) X(groups==2,1)];
-    response2 = X(groups==2,2);
-    centroids(2,:) = (regressors2\response2)';
+    for k = 1:K
+        %% 2. build one linear regression for each group
+        n(k) = length(find(groups==k));
+        
+        %%
+        regressors{k} = [ones(n(k),1) X(groups==k,1)];
+        response{k} = X(groups==k,2);
+        centroids(k,:) = (regressors{k}\response{k})';
+    end
     
     
     %% construct distance matrix
