@@ -41,7 +41,7 @@ dg = q;
 
 %% final step
 theta = acos(diag(S));
-diff = 0;
+diff = 1-sum(diag(S))/q;
 dmax = q;
 u = Qf*Y;
 v = Qg*Z;
