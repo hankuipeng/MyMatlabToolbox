@@ -27,7 +27,7 @@ for i = 1:size(T,1),
 end
 HClass = -sum(ProbClass.*log(ProbClass));
 HClust = -sum(ProbClust.*log(ProbClust));
-clEval.NMI = I/sqrt(HClass*HClust);
+clEval.NMI = 2*I/(HClass+HClust);
 
 
 nis=sum(sum(T,2).^2);
