@@ -3,7 +3,7 @@
 
 % Last updated: 6 Mar. 2020
 
-function err = missrate(Truth, labels)
+function err = ClusErr(Truth, labels)
 
 grps_a = bestMap(Truth, labels);
 err = sum(Truth(:) ~= grps_a(:)) / length(Truth);
